@@ -1,6 +1,6 @@
 ---
 - name: Check the webserver
-  hosts: web
+  hosts: all
 
   sources:
     - ansible.eda.url_check:
