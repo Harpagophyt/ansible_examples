@@ -1,0 +1,22 @@
+---
+- name: Check the webserver
+  hosts: web
+
+  sources:
+    - ansible.eda.url_check:
+      urls:
+        - http://192.168.1.217/files/index.html
+      delay: 10
+
+  rules:
+    - name: site is up
+      condition: event.url_check.status == "up"
+      action:
+        ansible.builtin.debug:
+          msg: Website is up
+
+    - name: site is down
+      condition: event.url_check.status == "down"
+      action:
+        run_playbook:
+          name: playbook.yml
