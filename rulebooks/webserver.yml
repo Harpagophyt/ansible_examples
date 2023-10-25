@@ -12,7 +12,7 @@
     - name: site is up
       condition: event.url_check.status == "up"
       action:
-        ansible.builtin.debug:
+        debug:
           msg: Website is up
 
     - name: site is down
