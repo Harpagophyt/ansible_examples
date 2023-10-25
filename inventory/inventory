@@ -1,0 +1,9 @@
+[web]
+servera.lab.example.com ansible_host=192.168.1.217
+[db]
+serverb.lab.example.com
+[data]
+serverc.lab.example.com
+serverd.lab.example.com
+servere.lab.example.com
+serverf.lab.example.com

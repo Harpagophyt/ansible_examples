@@ -1,0 +1,33 @@
+---
+- name: Deploy a webserver and a webapp
+  hosts: web
+  gather_facts: false
+  become: true
+
+  tasks:
+    - name: Install the apache web server
+      ansible.builtin.package:
+        name: httpd
+        state: present
+
+    - name: Open the http service for the web server on the firewall
+      ansible.posix.firewalld:
+        service: http
+        permanent: true
+        immediate: true
+        state: enabled
+
+    - name: Enable and start the apache webserver
+      ansible.builtin.service:
+        name: httpd
+        state: started
+        enabled: true
+
+    - name: Copy the files from the files directory to /var/www/html
+      ansible.builtin.copy:
+        src: files
+        dest: /var/www/html/
+        mode: '0755'
+        owner: root
+        group: root
+        setype: httpd_sys_content_t
