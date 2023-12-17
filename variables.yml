@@ -58,3 +58,46 @@
     - name: Calculate with int_var
       ansible.builtin.debug:
         msg: "int_var multiply with 10 equals: {{ int_var * 10 }}"
+
+# Example with map
+    - name: Map a function to list
+      vars:
+        my_list: [1, 2]
+      ansible.builtin.debug:
+        var: my_list | string
+
+    - name: Map a function to the items of a list
+      vars:
+        my_list: [1, 2]
+      ansible.builtin.debug:
+        var: my_list | map('string')
+
+    - name: Extract specific value and turn it into a list
+      vars:
+        my_list:
+          - id: 1
+            tag: a1
+            name: Susi
+          - id: 2
+            tag: a1
+            name: Peter
+          - id: 3
+            tag: a2
+            name: Hans
+      ansible.builtin.debug:
+        var: my_list | map(attribute="name")
+
+    - name: Extract specific value and turn it into a list
+      vars:
+        my_list:
+          - id: 1
+            tag: a1
+            name: Susi
+          - id: 2
+            tag: a1
+            name: Peter
+          - id: 3
+            tag: a2
+            name: Hans
+      ansible.builtin.debug:
+        var: my_list | selectattr('tag', '==', 'a1') | map(attribute="name")
