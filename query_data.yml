@@ -34,11 +34,11 @@
   tasks:
     - name: Query a data structur step by step - step 1
       ansible.builtin.debug:
-        var: data_structure
+        var: data_structure['one']
 
     - name: Query a data structure step by step - step 2
       ansible.builtin.debug:
-        var: data_structure | selectattr('tag', '==', 'a1')
+        var: data_structure['one'] | selectattr('tag', '==', 'a1')
 
     - name: Query a data structure step by step - step 3
       ansible.builtin.debug:

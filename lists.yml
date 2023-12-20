@@ -87,7 +87,7 @@
         my_string: "Hello world"
       ansible.builtin.debug:
         msg: The hash value of {{ my_string }} equals {{ my_string | hash('sha1') }}
-      
+
     - name: Generate the password hash of a string
       vars:
         my_string: "123456"
