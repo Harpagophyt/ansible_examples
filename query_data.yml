@@ -40,7 +40,7 @@
       ansible.builtin.debug:
         var: data_structure | selectattr('tag', '==', 'a1')
 
-    - name: Query a data structure step by step - step 2
+    - name: Query a data structure step by step - step 3
       ansible.builtin.debug:
         var: data_structure['one'] | selectattr('tag', '==', 'a1') | map(attribute='name')
 
