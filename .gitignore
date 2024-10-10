@@ -1,0 +1,6 @@
+/collections/**
+/roles/**
+!/roles/.gitkeep
+!/collections/.gitkeep
+/ansible-navigator.log
+*artifact*.json

@@ -1,0 +1,12 @@
+---
+roles:
+  - name: motd
+    src: https://github.com/Harpagophyt/ansible-role-motd.git
+    scm: git
+    version: "0.1.0"
+
+collections:
+  - name: training.example
+    source: https://github.com/Harpagophyt/ansible-collection-example.git
+    type: git
+    version: "0.1.0"
