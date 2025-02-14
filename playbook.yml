@@ -25,9 +25,34 @@
 
     - name: Copy the files from the files directory to /var/www/html
       ansible.builtin.copy:
-        src: files
+        src: files/web/
         dest: /var/www/html/
         mode: '0755'
         owner: root
         group: root
         setype: httpd_sys_content_t
+
+- name: Smoke test for the webservers
+  hosts: localhost
+  gather_facts: false
+  become: false
+
+  tasks:
+    - name: Is website reachable
+      ansible.builtin.uri:
+        url: "http://{{ item }}/"
+        return_content: true
+        method: GET
+        status_code:
+          - 200
+      register: smoke_test
+      loop: "{{ groups['web'] }}"
+
+    - name: Is content right
+      ansible.builtin.fail:
+        msg: Hello should be part of the website text at {{ item['url'] }}
+      when: "('Hellox' | lower )
+        not in 
+        (item['content'] | lower)"
+      loop: "{{ smoke_test['results'] }}"
+
