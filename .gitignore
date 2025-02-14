@@ -4,3 +4,4 @@
 !/collections/.gitkeep
 /ansible-navigator.log
 *artifact*.json
+inventory/inventory.devel
