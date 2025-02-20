@@ -10,4 +10,3 @@ collections:
     source: https://github.com/Harpagophyt/ansible-collection-example.git
     type: git
     version: "0.1.0"
-  - name: ansible.posix
