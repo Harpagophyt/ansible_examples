@@ -51,7 +51,7 @@
     - name: Is content right
       ansible.builtin.fail:
         msg: Hello should be part of the website text at {{ item['url'] }}
-      when: "('Hellox' | lower )
+      when: "('Hallo' | lower )
         not in 
         (item['content'] | lower)"
       loop: "{{ smoke_test['results'] }}"
