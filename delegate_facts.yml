@@ -1,0 +1,17 @@
+- name: Test delegate facts
+  hosts: servera.lab.example.com
+  gather_facts: false
+
+  tasks:
+    - name: Delegate call setup
+      ansible.builtin.setup:
+      delegate_to: serverb.lab.example.com
+      # delegate_facts: true
+
+    - name: Print hostname servera.lab.example.com
+      ansible.builtin.debug:
+        var: hostvars['servera.lab.example.com']['ansible_facts']['hostname']
+
+    - name: Print hostname serverb.lab.example.com
+      ansible.builtin.debug:
+        var: hostvars['serverb.lab.example.com']['ansible_facts']['hostname']
