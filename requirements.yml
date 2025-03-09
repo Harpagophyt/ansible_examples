@@ -10,3 +10,6 @@ collections:
     source: https://github.com/Harpagophyt/ansible-collection-example.git
     type: git
     version: "0.1.0"
+
+  - name: community.crypto
+    version: "<2.22.999"
