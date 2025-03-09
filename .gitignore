@@ -5,3 +5,5 @@
 /ansible-navigator.log
 *artifact*.json
 inventory/inventory.devel
+.ansible
+.vscode
