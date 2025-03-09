@@ -1,0 +1,57 @@
+---
+- name: Test error handling
+  hosts: localhost
+
+  vars:
+    test_var: 43
+
+  tasks:
+    - name: Tu was
+      ansible.builtin.debug:
+        msg: Hallo Welt
+
+    - name: Der Block
+      block:
+        - name: Task OK
+          ansible.builtin.debug:
+            msg: Task OK
+        - name: Task fail
+          ansible.builtin.command: /bin/false
+        - name: Task after fail
+          ansible.builtin.debug:
+            msg: Task after fail
+      rescue:
+        - name: Task rescue
+          ansible.builtin.debug:
+            msg: Task rescue - name({{ ansible_failed_task.name }}) result({{ ansible_failed_result}})
+      always:
+        - name: Task always
+          ansible.builtin.debug:
+            msg: Task always
+
+    - name: After block
+      ansible.builtin.debug:
+        msg: After block
+
+    - name: Test var with jinja2 if 1
+      ansible.builtin.debug:
+        msg: >-
+          Ist der Wert 42?
+          {%- if test_var == 42 %}
+            YES
+          {%- else %}
+            NO it is {{ test_var }}
+          {%- endif %}
+
+    - name: Test var with jinja2 if 2
+      ansible.builtin.debug:
+        msg: >-
+          Ist der Wert 42?
+          {{ 'YES' if test_var == 42 else 'NO, it is ' + (test_var|string)  }}
+
+    - name: Test var with ternary
+      ansible.builtin.debug:
+        msg: >-
+          Ist der Wert 42?
+          {{ ((test_var | int) == 42 )|
+            ternary("YES", "NO, it is " + (test_var|string)) }}
