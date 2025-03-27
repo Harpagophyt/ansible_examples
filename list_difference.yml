@@ -1,0 +1,31 @@
+---
+- name: Find differences between two lists
+  hosts: localhost
+  become: false
+  gather_facts: false
+
+  vars:
+    list_should:
+      - name: susi
+        groups:
+          - wheel
+          - admin
+      - name: peter
+        groups:
+          - wheel
+          - admin
+
+    list_is:
+      - name: susi
+        groups:
+          - wheel
+          - admin
+      - name: peter
+        groups:
+          - wheels
+          - admin
+
+  tasks:
+    - name: Print out the differences
+      ansible.builtin.debug:
+        msg: "{{ list_is | difference(list_should) }}"
